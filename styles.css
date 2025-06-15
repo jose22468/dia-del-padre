@@ -1,51 +1,112 @@
+/* Efecto de fondo animado */
 body {
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(-45deg, #f5f7fa, #e4e8f0);
     margin: 0;
-    padding: 20px;
+    padding: 0;
     color: #333;
+    overflow-x: hidden;
 }
 
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    z-index: -1;
+    opacity: 0.7;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Contenedor principal */
 .container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-    overflow: hidden;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+/* Encabezado con efecto especial */
 header {
     text-align: center;
     padding: 30px;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    background: linear-gradient(135deg, rgba(255, 154, 158, 0.9) 0%, rgba(250, 208, 196, 0.95) 100%);
+    border-radius: 15px;
+    margin-bottom: 30px;
     color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+    background-size: 400% 400%;
+    animation: gradientBorder 8s ease infinite;
+    z-index: -1;
+    border-radius: 20px;
+    opacity: 0.7;
+}
+
+@keyframes gradientBorder {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 h1 {
     font-family: 'Dancing Script', cursive;
-    font-size: 3em;
+    font-size: 3.5em;
     margin: 0;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
 }
 
 h2 {
-    font-size: 1.3em;
+    font-size: 1.5em;
     font-weight: 400;
     margin: 10px 0 0;
+    font-style: italic;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+/* Nombres de familia con efecto */
 .family-names {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 15px;
-    font-size: 1.1em;
+    gap: 15px;
+    margin-top: 20px;
+    font-size: 1.2em;
+}
+
+.family-names span {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 5px 15px;
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
 }
 
 .heart {
-    animation: pulse 1.5s infinite;
+    font-size: 1.3em;
+    animation: pulse 1.5s infinite, beat 0.5s alternate infinite;
 }
 
 @keyframes pulse {
@@ -54,33 +115,46 @@ h2 {
     100% { transform: scale(1); }
 }
 
+@keyframes beat {
+    to { transform: scale(1.2); }
+}
+
+/* Galería de fotos con efectos 3D */
 .photo-gallery {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     flex-wrap: wrap;
-    gap: 20px;
-    padding: 30px;
+    gap: 30px;
+    margin: 40px 0;
+    perspective: 1000px;
 }
 
 .photo-frame {
-    width: 250px;
-    height: 250px;
-    border: 10px solid white;
+    width: 280px;
+    height: 280px;
+    border: 15px solid white;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     overflow: hidden;
     position: relative;
-    transition: transform 0.3s;
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .photo-frame:hover {
-    transform: scale(1.05);
+    transform: scale(1.05) rotateY(10deg) rotateX(5deg);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 .photo-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.photo-frame:hover img {
+    transform: scale(1.1);
 }
 
 .photo-caption {
@@ -88,98 +162,181 @@ h2 {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0,0,0,0.7);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
     color: white;
-    padding: 10px;
-    text-align: center;
-}
-
-.message {
-    padding: 0 30px 30px;
+    padding: 15px;
     text-align: center;
     font-size: 1.1em;
+    transform: translateY(100%);
+    transition: transform 0.3s;
+}
+
+.photo-frame:hover .photo-caption {
+    transform: translateY(0);
+}
+
+/* Mensaje principal con efecto máquina de escribir */
+.message {
+    margin: 40px auto;
+    max-width: 700px;
     line-height: 1.8;
+    font-size: 1.2em;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #ff9a9e;
+}
+
+.message p:first-child {
+    font-weight: bold;
+    font-size: 1.3em;
+    color: #e73c7e;
 }
 
 .signature {
+    font-style: italic;
+    margin-top: 30px;
     font-family: 'Pacifico', cursive;
-    font-size: 1.2em;
-    color: #e73c7e;
-    margin-top: 20px;
+    font-size: 1.4em;
+    color: #a18cd1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+/* Botones interactivos */
 .interactive-buttons {
     display: flex;
     justify-content: center;
     gap: 20px;
-    padding: 0 30px 30px;
     flex-wrap: wrap;
+    margin: 40px 0;
 }
 
 button {
-    padding: 12px 25px;
+    padding: 15px 30px;
     border: none;
     border-radius: 50px;
-    background: linear-gradient(45deg, #ff9a9e, #fad0c4);
-    color: white;
-    font-size: 1em;
+    font-size: 1.1em;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all 0.3s;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+    background-size: 400% 400%;
+    z-index: -1;
+    transition: opacity 0.3s;
+    opacity: 1;
+    animation: gradientBG 8s ease infinite;
 }
 
 button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+button:hover::before {
+    opacity: 0.8;
+}
+
+#surprise-btn {
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+#poem-btn {
+    background: linear-gradient(45deg, #a18cd1, #fbc2eb);
+    color: white;
+}
+
+/* Contenedor de poema */
 #poem-container {
-    padding: 20px;
-    margin: 0 30px 30px;
-    background: #f9f9f9;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    margin: 30px auto;
+    max-width: 600px;
     text-align: center;
+    font-style: italic;
+    line-height: 1.8;
+    border-top: 3px solid #a18cd1;
     display: none;
 }
 
 #poem-container h3 {
-    font-family: 'Dancing Script', cursive;
     color: #e73c7e;
-    font-size: 1.8em;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2em;
+    margin-top: 0;
 }
 
-.hidden {
-    display: none;
-}
-
-/* Efectos de confeti */
+/* Efectos de confeti y corazones */
 .confetti {
     position: fixed;
     width: 15px;
     height: 15px;
-    background-color: #f00;
     animation: fall 5s linear forwards;
     z-index: 1000;
+    opacity: 0.8;
 }
 
 @keyframes fall {
     to {
-        transform: translateY(100vh) rotate(360deg);
+        transform: translateY(100vh) rotate(720deg);
         opacity: 0;
     }
 }
 
-/* Corazones */
 .heart-fall {
     position: fixed;
-    color: #ff6b6b;
     font-size: 20px;
+    color: #ff6b6b;
     animation: heartFall 4s linear forwards;
     z-index: 1000;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
 }
 
 @keyframes heartFall {
     to {
         transform: translateY(100vh) rotate(360deg);
         opacity: 0;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        margin: 15px;
+        padding: 15px;
+    }
+    
+    .photo-gallery {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .photo-frame {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .interactive-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    button {
+        width: 80%;
     }
 }
