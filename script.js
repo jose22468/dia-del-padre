@@ -7,7 +7,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const birthdayAudio = document.getElementById('birthday-audio');
     const familyAudio = document.getElementById('family-audio');
     
-    // Efecto sorpresa
+    // Configurar audio para que se pueda reproducir después de interacción
+    document.body.addEventListener('click', function() {
+        birthdayAudio.volume = 0.3;
+        familyAudio.volume = 0.5;
+    }, { once: true });
+    
+    // Efecto sorpresa - CORREGIDO
     surpriseBtn.addEventListener('click', function() {
         // Cambiar texto y estilo del botón
         surpriseBtn.innerHTML = '¡Te queremos mucho papá! ❤';
@@ -20,9 +26,49 @@ document.addEventListener('DOMContentLoaded', function() {
         createHearts();
         
         // Reproducir audio
-        birthdayAudio.play().catch(e => console.log("Audio no pudo reproducirse automáticamente"));
+        playAudio(birthdayAudio);
         
         // Animación de agradecimiento
+        showThankYouMessage();
+    });
+    
+    // Botón de música - CORREGIDO
+    let isMusicPlaying = false;
+    musicBtn.addEventListener('click', function() {
+        if (isMusicPlaying) {
+            familyAudio.pause();
+            musicBtn.innerHTML = '🎵 Música especial';
+        } else {
+            playAudio(familyAudio);
+            musicBtn.innerHTML = '🔊 Reproduciendo...';
+        }
+        isMusicPlaying = !isMusicPlaying;
+    });
+    
+    // Botón de poema - CORREGIDO
+    poemBtn.addEventListener('click', function() {
+        if (poemContainer.style.display === 'block') {
+            poemContainer.style.display = 'none';
+            poemBtn.innerHTML = '📜 Poema para papá';
+        } else {
+            poemContainer.style.display = 'block';
+            poemBtn.innerHTML = '❌ Cerrar poema';
+            poemContainer.classList.add('animate__animated', 'animate__fadeIn');
+        }
+    });
+    
+    // Función para reproducir audio
+    function playAudio(audioElement) {
+        audioElement.currentTime = 0;
+        audioElement.play().catch(e => {
+            console.log("El audio no pudo reproducirse automáticamente");
+            // Mostrar mensaje para el usuario
+            alert("Por favor haz clic en cualquier parte de la página primero para habilitar el audio");
+        });
+    }
+    
+    // Función para mostrar mensaje de agradecimiento
+    function showThankYouMessage() {
         const thankYou = document.createElement('div');
         thankYou.textContent = 'Gracias por ser nuestro papá';
         thankYou.style.position = 'fixed';
@@ -40,44 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             thankYou.remove();
         }, 3000);
-    });
-    
-    // Botón de música
-    musicBtn.addEventListener('click', function() {
-        if (familyAudio.paused) {
-            familyAudio.play();
-            musicBtn.innerHTML = '🔊 Música especial';
-        } else {
-            familyAudio.pause();
-            musicBtn.innerHTML = '🎵 Música especial';
-        }
-    });
-    
-    // Botón de poema
-    poemBtn.addEventListener('click', function() {
-        if (poemContainer.style.display === 'block') {
-            poemContainer.style.display = 'none';
-            poemBtn.innerHTML = '📜 Poema para papá';
-        } else {
-            poemContainer.style.display = 'block';
-            poemBtn.innerHTML = '❌ Cerrar poema';
-            poemContainer.classList.add('animate__animated', 'animate__fadeIn');
-        }
-    });
-    
-    // Efecto al pasar el ratón sobre las fotos
-    const photos = document.querySelectorAll('.photo-frame');
-    photos.forEach(photo => {
-        photo.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.05) rotate(2deg)';
-            this.style.boxShadow = '0 10px 20px rgba(0,0,0,0.3)';
-        });
-        
-        photo.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1) rotate(0)';
-            this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
-        });
-    });
+    }
     
     // Función para crear confeti
     function createConfetti() {
@@ -94,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
                 confetti.style.animationDelay = Math.random() * 2 + 's';
                 
-                // Formas aleatorias
                 if (Math.random() > 0.5) {
                     confetti.style.borderRadius = '50%';
                 } else if (Math.random() > 0.5) {
@@ -103,12 +111,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     confetti.style.borderRadius = '10px';
                 }
                 
-                // Rotación aleatoria
                 confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                
                 document.body.appendChild(confetti);
                 
-                // Eliminar después de la animación
                 setTimeout(() => {
                     confetti.remove();
                 }, 5000);
@@ -127,10 +132,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 heart.style.fontSize = Math.random() * 20 + 10 + 'px';
                 heart.style.animationDuration = Math.random() * 3 + 2 + 's';
                 heart.style.animationDelay = Math.random() * 2 + 's';
-                
                 document.body.appendChild(heart);
                 
-                // Eliminar después de la animación
                 setTimeout(() => {
                     heart.remove();
                 }, 4000);
@@ -157,21 +160,17 @@ document.addEventListener('DOMContentLoaded', function() {
         typeWriter();
     }, 1000);
     
-    // Efecto de nieve (opcional)
-    function createSnow() {
-        const snow = document.createElement('div');
-        snow.className = 'snow';
-        snow.style.left = Math.random() * 100 + 'vw';
-        snow.style.animationDuration = Math.random() * 5 + 5 + 's';
-        snow.style.opacity = Math.random();
-        snow.style.width = snow.style.height = Math.random() * 10 + 5 + 'px';
-        document.body.appendChild(snow);
+    // Efecto hover para fotos
+    const photos = document.querySelectorAll('.photo-frame');
+    photos.forEach(photo => {
+        photo.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05) rotate(2deg)';
+            this.style.boxShadow = '0 10px 20px rgba(0,0,0,0.3)';
+        });
         
-        setTimeout(() => {
-            snow.remove();
-        }, 10000);
-    }
-    
-    // Crear nieve cada cierto tiempo
-    setInterval(createSnow, 300);
+        photo.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1) rotate(0)';
+            this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+        });
+    });
 });
