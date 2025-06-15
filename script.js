@@ -1,95 +1,83 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Elementos interactivos
+    // Botones
     const surpriseBtn = document.getElementById('surprise-btn');
-    const musicBtn = document.getElementById('music-btn');
     const poemBtn = document.getElementById('poem-btn');
     const poemContainer = document.getElementById('poem-container');
-    const birthdayAudio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-happy-birthday-to-you-880.mp3');
-    const familyAudio = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.mp3');
     
-    // Configurar audios
-    birthdayAudio.volume = 0.5;
-    familyAudio.volume = 0.5;
-    birthdayAudio.preload = 'auto';
-    familyAudio.preload = 'auto';
-    
-    // Variable para controlar el estado de la música
-    let isMusicPlaying = false;
-    
-    // Habilitar audio con el primer clic en cualquier parte de la página
-    const enableAudio = () => {
-        document.body.removeEventListener('click', enableAudio);
-        // Reproducir y pausar inmediatamente para "desbloquear"
-        birthdayAudio.play().then(() => {
-            birthdayAudio.pause();
-            birthdayAudio.currentTime = 0;
-        }).catch(e => console.log("Audio desbloqueado"));
-        
-        familyAudio.play().then(() => {
-            familyAudio.pause();
-            familyAudio.currentTime = 0;
-        }).catch(e => console.log("Audio desbloqueado"));
-    };
-    
-    document.body.addEventListener('click', enableAudio);
-    
-    // Efecto sorpresa
+    // Botón de sorpresa
     surpriseBtn.addEventListener('click', function() {
-        surpriseBtn.innerHTML = '¡Te queremos mucho papá! ❤';
-        surpriseBtn.style.background = 'linear-gradient(45deg, #ff6b6b, #ff8e8e)';
+        // Cambiar texto del botón
+        surpriseBtn.textContent = '¡Te queremos mucho! ❤';
         
+        // Crear confeti
         createConfetti();
-        createHearts();
         
-        // Reproducir audio con manejo de errores
-        playAudio(birthdayAudio, '🎵 Audio de felicitación');
-    });
-    
-    // Botón de música
-    musicBtn.addEventListener('click', function() {
-        if (isMusicPlaying) {
-            familyAudio.pause();
-            musicBtn.innerHTML = '🎵 Música especial';
-        } else {
-            playAudio(familyAudio, '🎵 Música familiar');
-            musicBtn.innerHTML = '🔊 Reproduciendo...';
-        }
-        isMusicPlaying = !isMusicPlaying;
+        // Crear corazones
+        createHearts();
     });
     
     // Botón de poema
     poemBtn.addEventListener('click', function() {
         if (poemContainer.style.display === 'block') {
             poemContainer.style.display = 'none';
-            poemBtn.innerHTML = '📜 Poema para papá';
+            poemBtn.textContent = '📜 Poema para papá';
         } else {
             poemContainer.style.display = 'block';
-            poemBtn.innerHTML = '❌ Cerrar poema';
-            poemContainer.classList.add('animate__animated', 'animate__fadeIn');
+            poemBtn.textContent = '❌ Cerrar poema';
         }
     });
     
-    // Función mejorada para reproducir audio
-    function playAudio(audioElement, successMsg = '') {
-        audioElement.currentTime = 0;
-        audioElement.play()
-            .then(() => {
-                if (successMsg) console.log(successMsg + " reproducido");
-            })
-            .catch(e => {
-                console.error("Error al reproducir:", e);
-                // Mostrar instrucciones al usuario
-                alert("Para escuchar el audio:\n1. Haz clic primero en cualquier parte de la página\n2. Vuelve a hacer clic en el botón");
-            });
+    // Función para crear confeti
+    function createConfetti() {
+        const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+        
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.width = Math.random() * 10 + 5 + 'px';
+            confetti.style.height = confetti.style.width;
+            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+            
+            // Formas aleatorias
+            if (Math.random() > 0.5) {
+                confetti.style.borderRadius = '50%';
+            }
+            
+            document.body.appendChild(confetti);
+            
+            // Eliminar después de la animación
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
     }
     
-    // Resto de tus funciones (createConfetti, createHearts, typeWriter, etc...)
-    // ... [mantén el resto de tus funciones igual]
+    // Función para crear corazones
+    function createHearts() {
+        for (let i = 0; i < 30; i++) {
+            setTimeout(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart-fall';
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 4000);
+            }, i * 100);
+        }
+    }
     
-    // Efecto de máquina de escribir
-    const messageText = "En este día tan especial queremos recordarte lo importante que eres para nosotros. Eres nuestro pilar, nuestro apoyo y nuestro ejemplo a seguir. Cada día nos enseñas con tu amor y dedicación lo que significa ser una familia unida.";
+    // Efecto de escritura automática
+    const messageText = "Eres nuestro pilar, nuestro apoyo y nuestro mejor ejemplo. Gracias por todo tu amor.";
     let i = 0;
-    const speed = 30;
+    const speed = 40;
     
     function typeWriter() {
         if (i < messageText.length) {
@@ -99,8 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    setTimeout(() => {
-        document.getElementById("personal-message").textContent = "";
-        typeWriter();
-    }, 1000);
+    // Iniciar efecto
+    setTimeout(typeWriter, 1000);
 });
