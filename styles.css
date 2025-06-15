@@ -208,4 +208,96 @@ button {
 #poem-btn {
     background: linear-gradient(45deg, #84fab0, #8fd3f4);
     color: white;
-    box-shadow
+    box-shadow: 0 4px 15px rgba(132, 250, 176, 0.4);
+}
+
+button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
+}
+
+#poem-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    margin-top: 30px;
+    text-align: center;
+    font-style: italic;
+    line-height: 1.8;
+    border-top: 3px solid #23d5ab;
+    display: none;
+}
+
+#poem-container h3 {
+    color: #e73c7e;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2em;
+    margin-top: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Efectos de confeti */
+.confetti {
+    position: fixed;
+    width: 15px;
+    height: 15px;
+    background-color: #f00;
+    animation: fall 5s linear infinite;
+    z-index: 1000;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Efecto de corazones */
+.heart-fall {
+    position: fixed;
+    font-size: 20px;
+    color: #ff6b6b;
+    animation: heartFall 4s linear infinite;
+    z-index: 1000;
+}
+
+@keyframes heartFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .photo-gallery {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .photo-frame {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .interactive-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    button {
+        width: 80%;
+    }
+}
