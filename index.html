@@ -6,10 +6,12 @@
     <title>Feliz Día del Padre - Miguel Ángel</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 <body>
-    <div class="container">
-        <header>
+    <div class="background-animation"></div>
+    <div class="container animate__animated animate__fadeIn">
+        <header class="animate__animated animate__zoomIn">
             <h1>Feliz Día del Padre</h1>
             <h2>Miguel Ángel, el mejor papá del mundo</h2>
             <div class="family-names">
@@ -23,42 +25,48 @@
         
         <main>
             <div class="photo-gallery">
-                <div class="photo-frame">
+                <div class="photo-frame animate__animated animate__fadeInLeft">
                     <img src="WhatsApp Image 2025-06-14 at 8.45.49 PM.jpeg" alt="Miguel Ángel">
                     <div class="photo-caption">Nuestro héroe</div>
                 </div>
-                <div class="photo-frame">
+                <div class="photo-frame animate__animated animate__fadeInUp">
                     <img src="WhatsApp Image 2025-06-14 at 8.45.49 PM (1).jpeg" alt="Familia">
                     <div class="photo-caption">Nuestra familia</div>
                 </div>
-                <div class="photo-frame">
+                <div class="photo-frame animate__animated animate__fadeInRight">
                     <img src="WhatsApp Image 2025-06-14 at 8.45.49 PM (2).jpeg" alt="Recuerdos">
                     <div class="photo-caption">Nuestros recuerdos</div>
                 </div>
             </div>
             
-            <div class="message">
+            <div class="message animate__animated animate__fadeInUp">
                 <p>Querido papá:</p>
-                <p id="personal-message">Eres nuestro pilar, nuestro apoyo y nuestro mejor ejemplo. Gracias por todo tu amor.</p>
+                <p id="personal-message"></p>
+                <p>Gracias por tu paciencia infinita, por tus consejos sabios y por ese amor incondicional que nos das cada día.</p>
                 <p class="signature">Con todo nuestro cariño,<br><span>Claudia Patricia, Ana María y Josemiguel</span></p>
             </div>
             
             <div class="interactive-buttons">
-                <button id="surprise-btn">¡Haz clic para una sorpresa!</button>
+                <button id="surprise-btn" class="animate__animated animate__pulse animate__infinite">¡Haz clic para una sorpresa!</button>
                 <button id="poem-btn">📜 Poema para papá</button>
             </div>
             
-            <div id="poem-container" class="hidden">
+            <div id="poem-container" class="hidden animate__animated">
                 <h3>Poema para Papá</h3>
                 <p>Miguel Ángel, padre querido,<br>
                 en nuestro corazón siempre has vivido.<br>
-                Con mi madre a tu lado,<br>
+                Con mi mama a tu lado,<br>
                 un hogar de amor han formado.</p>
                 
                 <p>Ana María y yo también,<br>
                 te admiramos y te queremos bien.<br>
                 Eres nuestro sol, nuestro faro,<br>
                 nuestro papá, nuestro amparo.</p>
+                
+                <p>Hoy celebramos con emoción,<br>
+                tu amor, tu guía y tu dedicación.<br>
+                ¡Feliz Día del Padre! Es nuestro grito,<br>
+                porque eres ¡nuestro papá favorito!</p>
             </div>
         </main>
     </div>
