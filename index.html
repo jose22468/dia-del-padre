@@ -3,32 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feliz Día del Padre</title>
+    <title>Feliz Día del Padre - Miguel Ángel</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 <body>
+    <div class="background-animation"></div>
     <div class="container">
-        <header>
+        <header class="animate__animated animate__zoomIn">
             <h1>Feliz Día del Padre</h1>
-            <h2>Para el mejor papá del mundo</h2>
+            <h2>Miguel Ángel, el mejor papá del mundo</h2>
+            <div class="family-names">
+                <span>Claudia Patricia</span>
+                <span class="heart">❤</span>
+                <span>Ana María</span>
+                <span class="heart">❤</span>
+                <span>[Tu nombre]</span>
+            </div>
         </header>
         
         <main>
-            <div class="photo-frame">
-                <img id="father-photo" src="" alt="Foto de papá">
+            <div class="photo-gallery">
+                <div class="photo-frame animate__animated animate__fadeInLeft">
+                    <img src="WhatsApp Image 2025-06-14 at 8.45.49 PM.jpeg" alt="Miguel Ángel">
+                    <div class="photo-caption">Nuestro héroe</div>
+                </div>
+                <div class="photo-frame animate__animated animate__fadeInUp">
+                    <img src="WhatsApp Image 2025-06-14 at 8.45.49 PM (1).jpeg" alt="Familia">
+                    <div class="photo-caption">Nuestra familia</div>
+                </div>
+                <div class="photo-frame animate__animated animate__fadeInRight">
+                    <img src="WhatsApp Image 2025-06-14 at 8.45.49 PM (2).jpeg" alt="Recuerdos">
+                    <div class="photo-caption">Nuestros recuerdos</div>
+                </div>
             </div>
             
-            <div class="message">
+            <div class="message animate__animated animate__fadeInUp">
                 <p>Querido papá:</p>
-                <p id="personal-message">Eres mi héroe, mi guía y mi mejor ejemplo. Gracias por todo tu amor y apoyo incondicional.</p>
-                <p>¡Te quiero mucho!</p>
-                <p class="signature">Con todo mi cariño,<br><span id="your-name">Tu hijo Josemiguel</span></p>
+                <p id="personal-message">En este día tan especial queremos recordarte lo importante que eres para nosotros. Eres nuestro pilar, nuestro apoyo y nuestro ejemplo a seguir. Cada día nos enseñas con tu amor y dedicación lo que significa ser una familia unida.</p>
+                <p>Gracias por tu paciencia infinita, por tus consejos sabios y por ese amor incondicional que nos das cada día.</p>
+                <p class="signature">Con todo nuestro cariño,<br><span id="your-name">Claudia Patricia, Ana María y [Tu nombre]</span></p>
             </div>
             
-            <button id="surprise-btn">¡Haz clic para una sorpresa!</button>
+            <div class="interactive-buttons">
+                <button id="surprise-btn">¡Haz clic para una sorpresa!</button>
+                <button id="music-btn">🎵 Música especial</button>
+                <button id="poem-btn">📜 Poema para papá</button>
+            </div>
+            
+            <div id="poem-container" class="hidden">
+                <h3>Poema para Papá</h3>
+                <p>Miguel Ángel, padre querido,<br>
+                en nuestro corazón siempre has vivido.<br>
+                Con Claudia Patricia a tu lado,<br>
+                un hogar de amor han formado.</p>
+                
+                <p>Ana María y [Tu nombre] también,<br>
+                te admiramos y te queremos bien.<br>
+                Eres nuestro sol, nuestro faro,<br>
+                nuestro papá, nuestro amparo.</p>
+            </div>
         </main>
     </div>
+    
+    <audio id="birthday-audio" src="https://assets.mixkit.co/sfx/preview/mixkit-happy-birthday-to-you-880.mp3"></audio>
+    <audio id="family-audio" src="https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.mp3"></audio>
     
     <script src="script.js"></script>
 </body>
